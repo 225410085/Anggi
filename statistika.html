@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pelajaran Statistika Pakai R</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+        header {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px;
+            text-align: center;
+        }
+        .container {
+            padding: 20px;
+        }
+        button {
+            background: #4CAF50;
+            color: white;
+            padding: 10px;
+            border: none;
+            cursor: pointer;
+        }
+        .quiz {
+            margin-top: 20px;
+            background: white;
+            padding: 15px;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>Pelajaran Statistika Pakai R</h1>
+</header>
+
+<div class="container">
+    <h2>Materi Statistika Pakai R</h2>
+    <p>Sinopsis: Memahami konsep dasar statistika dan bagaimana menggunakan R untuk analisis data.</p>
+    <p>Materi Singkat: Dalam pelajaran ini, siswa akan belajar tentang pengumpulan data, analisis deskriptif, dan inferensial. Penggunaan perangkat lunak R akan diajarkan untuk membuat visualisasi data dan melakukan analisis statistik.</p>
+    
+    <div class="quiz">
+        <h3>Kuiz Statistika</h3>
+        <div id="quiz-container"></div>
+        <p id="result" style="margin-top: 10px;"></p>
+        <button onclick="calculateScore()">Tampilkan Skor</button>
+    </div>
+
+    <button onclick="window.location.href='index.html'">Kembali ke Beranda</button>
+</div>
+
+<script>
+    const questions = [
+        { question: "Apa itu statistik deskriptif?", options: ["Menganalisis data", "Membuat prediksi", "Mengumpulkan data"], answer: "Menganalisis data" },
+        { question: "Apa fungsi dari R dalam analisis data?", options: ["Pengolahan data", "Visualisasi data", "Semua benar"], answer: "Semua benar" },
+        { question: "Apa itu mean dalam statistika?", options: ["Nilai tengah", "Rata-rata", "Nilai tertinggi"], answer: "Rata-rata" },
+        { question: "Apa itu nilai median?", options: ["Nilai yang paling umum", "Nilai tengah dari data", "Nilai terkecil"], answer: "Nilai tengah dari data" },
+        { question: "Apa itu deviasi standar?", options: ["Mengukur sebaran data", "Jumlah total data", "Rata-rata data"], answer: "Mengukur sebaran data" },
+        { question: "Apa yang dimaksud dengan outlier?", options: ["Data yang berbeda jauh dari yang lain", "Data yang tidak relevan", "Data yang hilang"], answer: "Data yang berbeda jauh dari yang lain" },
+        { question: "Apa itu hipotesis nol?", options: ["Pernyataan yang diuji", "Kesimpulan dari data", "Data yang tidak valid"], answer: "Pernyataan yang diuji" },
+        { question: "Apa itu regresi?", options: ["Analisis hubungan antar variabel", "Pengumpulan data", "Pengolahan data"], answer: "Analisis hubungan antar variabel" },
+        { question: "Apa yang dilakukan analisis varian (ANOVA)?", options: ["Membandingkan rata-rata antara dua atau lebih grup", "Menghitung rata-rata", "Mengukur deviasi"], answer: "Membandingkan rata-rata antara dua atau lebih grup" },
+        { question: "Apa itu visualisasi data?", options: ["Menyajikan data dalam bentuk grafik", "Menghitung data", "Mengumpulkan data"], answer: "Menyajikan data dalam bentuk grafik" }
+    ];
+
+    let score = 0;
+    let correctAnswers = 0;
+    let wrongAnswers = 0;
+
+    function displayQuestions() {
+        const quizContainer = document.getElementById('quiz-container');
+        questions.forEach((q, index) => {
+            const questionElement = document.createElement('div');
+            questionElement.innerHTML = `<p><strong>${index + 1}. ${q.question}</strong></p>`;
+            q.options.forEach(option => {
+                questionElement.innerHTML += `<button onclick="checkAnswer('${option}', '${q.answer}')">${option}</button>`;
+            });
+            quizContainer.appendChild(questionElement);
+        });
+    }
+
+    function checkAnswer(selected, correct) {
+        if (selected === correct) {
+            score++;
+            correctAnswers++;
+        } else {
+            wrongAnswers++;
+        }
+    }
+
+    function calculateScore() {
+        document.getElementById('result').innerText = `Jawaban Benar: ${correctAnswers}, Jawaban Salah: ${wrongAnswers}, Skor Anda: ${score} dari ${questions.length}`;
+    }
+
+    displayQuestions();
+</script>
+
+</body>
+</html>

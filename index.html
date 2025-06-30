@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aplikasi Pembelajaran Interaktif</title>
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#4CAF50">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+        header {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px;
+            text-align: center;
+        }
+        nav a {
+            color: white;
+            margin: 0 15px;
+            text-decoration: none;
+        }
+        .container {
+            padding: 20px;
+        }
+        .lesson-list {
+            list-style: none;
+            padding: 0;
+        }
+        .lesson-list li {
+            background: white;
+            margin: 10px 0;
+            padding: 15px;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        .lesson-list a {
+            color: #4CAF50;
+            text-decoration: none;
+        }
+        button {
+            background: #f44336;
+            color: white;
+            padding: 10px;
+            border: none;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+        #install-btn {
+            background: #4CAF50;
+            display: block; /* Tampilkan tombol */
+            margin-top: 10px; /* Jarak atas */
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>Aplikasi Pembelajaran Interaktif</h1>
+</header>
+
+<div class="container" id="home">
+    <h2>Daftar Pelajaran</h2>
+    <ul class="lesson-list">
+        <li><a href="matematika.html">Pelajaran Matematika</a></li>
+        <li><a href="bahasa_inggris.html">Pelajaran Bahasa Inggris untuk Mahasiswa</a></li>
+        <li><a href="statistika.html">Pelajaran Statistika Pakai R</a></li>
+        <li><a href="workshop.html">Pelajaran Workshop</a></li>
+    </ul>
+    <button id="install-btn">Instal Aplikasi</button> <!-- Tombol tidak disembunyikan -->
+    <button onclick="logout()">Logout</button>
+</div>
+
+<script>
+    // Cek apakah pengguna sudah login
+    if (!localStorage.getItem('loggedIn')) {
+        // Jika belum login, redirect ke halaman login
+        window.location.href = "login.html";
+    }
+
+    function logout() {
+        // Hapus status login dan redirect ke halaman login
+        localStorage.removeItem('loggedIn');
+        window.location.href = "login.html";
+    }
+
+    if ('serviceWorker' in navigator) {
+        window.addEventListener('load', () => {
+            navigator.serviceWorker.register('sw.js').then((registration) => {
+                console.log('Service Worker registered with scope:', registration.scope);
+            }).catch((error) => {
+                console.error('Service Worker registration failed:', error);
+            });
+        });
+
+        let deferredPrompt;
+
+        window.addEventListener('beforeinstallprompt', (e) => {
+            e.preventDefault();
+            deferredPrompt = e;
+
+            const installButton = document.getElementById('install-btn');
+            installButton.addEventListener('click', () => {
+                installButton.style.display = 'none'; // Sembunyikan tombol setelah diklik
+                deferredPrompt.prompt(); // Tampilkan prompt instalasi
+                deferredPrompt.userChoice.then((choiceResult) => {
+                    if (choiceResult.outcome === 'accepted') {
+                        console.log('User accepted the install prompt');
+                    } else {
+                        console.log('User dismissed the install prompt');
+                    }
+                    deferredPrompt = null;
+                });
+            });
+        });
+    }
+</script>
+
+</body>
+</html>

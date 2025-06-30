@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pelajaran Matematika</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+        header {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px;
+            text-align: center;
+        }
+        .container {
+            padding: 20px;
+        }
+        button {
+            background: #4CAF50;
+            color: white;
+            padding: 10px;
+            border: none;
+            cursor: pointer;
+        }
+        .quiz {
+            margin-top: 20px;
+            background: white;
+            padding: 15px;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>Pelajaran Matematika</h1>
+</header>
+
+<div class="container">
+    <h2>Materi Matematika Dasar</h2>
+    <p>Sinopsis: Mempelajari konsep dasar matematika, termasuk aritmetika, geometri, dan aljabar.</p>
+    <p>Materi Singkat: Dalam pelajaran ini, siswa akan belajar tentang operasi dasar matematika, sifat-sifat angka, serta cara menghitung luas dan volume dari berbagai bentuk geometri. Materi ini penting untuk membangun fondasi yang kuat dalam matematika.</p>
+    
+    <div class="quiz">
+        <h3>Kuiz Matematika</h3>
+        <div id="quiz-container"></div>
+        <p id="result" style="margin-top: 10px;"></p>
+        <button onclick="calculateScore()">Tampilkan Skor</button>
+    </div>
+
+    <button onclick="window.location.href='index.html'">Kembali ke Beranda</button>
+</div>
+
+<script>
+    const questions = [
+        { question: "Apa hasil dari 5 + 3?", options: ["8", "6", "10"], answer: "8" },
+        { question: "Luas persegi dengan sisi 4 adalah?", options: ["16", "12", "20"], answer: "16" },
+        { question: "Apa hasil dari 12 - 7?", options: ["5", "4", "6"], answer: "5" },
+        { question: "Berapa nilai dari 3 x 4?", options: ["12", "10", "14"], answer: "12" },
+        { question: "Apa hasil dari 15 / 3?", options: ["4", "5", "6"], answer: "5" },
+        { question: "Berapa sudut dalam segitiga?", options: ["180 derajat", "360 derajat", "90 derajat"], answer: "180 derajat" },
+        { question: "Apa hasil dari 9 + 6?", options: ["15", "14", "16"], answer: "15" },
+        { question: "Luas lingkaran dengan jari-jari 3 adalah?", options: ["28.26", "31.42", "18.84"], answer: "28.26" },
+        { question: "Apa itu bilangan genap?", options: ["Bilangan yang dapat dibagi 2", "Bilangan yang tidak dapat dibagi 2", "Bilangan positif"], answer: "Bilangan yang dapat dibagi 2" },
+        { question: "Apa itu bilangan prima?", options: ["Bilangan yang hanya dapat dibagi 1 dan dirinya sendiri", "Bilangan yang dapat dibagi 2", "Bilangan negatif"], answer: "Bilangan yang hanya dapat dibagi 1 dan dirinya sendiri" }
+    ];
+
+    let score = 0;
+    let correctAnswers = 0;
+    let wrongAnswers = 0;
+
+    function displayQuestions() {
+        const quizContainer = document.getElementById('quiz-container');
+        questions.forEach((q, index) => {
+            const questionElement = document.createElement('div');
+            questionElement.innerHTML = `<p><strong>${index + 1}. ${q.question}</strong></p>`;
+            q.options.forEach(option => {
+                questionElement.innerHTML += `<button onclick="checkAnswer('${option}', '${q.answer}')">${option}</button>`;
+            });
+            quizContainer.appendChild(questionElement);
+        });
+    }
+
+    function checkAnswer(selected, correct) {
+        if (selected === correct) {
+            score++;
+            correctAnswers++;
+        } else {
+            wrongAnswers++;
+        }
+    }
+
+     function calculateScore() {
+        document.getElementById('result').innerText = `Jawaban Benar: ${correctAnswers}, Jawaban Salah: ${wrongAnswers}, Skor Anda: ${score} dari ${questions.length}`;
+    }
+
+    displayQuestions();
+</script>
+
+</body>
+</html>

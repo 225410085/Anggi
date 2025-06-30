@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pelajaran Workshop</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+        header {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px;
+            text-align: center;
+        }
+        .container {
+            padding: 20px;
+        }
+        button {
+            background: #4CAF50;
+            color: white;
+            padding: 10px;
+            border: none;
+            cursor: pointer;
+        }
+        .quiz {
+            margin-top: 20px;
+            background: white;
+            padding: 15px;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>Pelajaran Workshop</h1>
+</header>
+
+<div class="container">
+    <h2>Materi Workshop Kreatif</h2>
+    <p>Sinopsis: Kegiatan praktis yang membantu meningkatkan keterampilan kreatif dan kolaboratif.</p>
+    <p>Materi Singkat: Pelajaran ini dirancang untuk mendorong siswa berkolaborasi dalam proyek kreatif, seperti seni, kerajinan, dan teknologi. Melalui pengalaman praktis, siswa akan belajar tentang proses kreatif dan pentingnya kerja tim.</p>
+    
+    <div class="quiz">
+        <h3>Kuiz Workshop</h3>
+        <div id="quiz-container"></div>
+        <p id="result" style="margin-top: 10px;"></p>
+        <button onclick="calculateScore()">Tampilkan Skor</button>
+    </div>
+
+    <button onclick="window.location.href='index.html'">Kembali ke Beranda</button>
+</div>
+
+<script>
+    const questions = [
+        { question: "Apa yang dimaksud dengan workshop?", options: ["Kegiatan belajar praktis", "Ujian teori", "Pembelajaran mandiri"], answer: "Kegiatan belajar praktis" },
+        { question: "Apa tujuan dari workshop?", options: ["Meningkatkan keterampilan", "Membuat laporan", "Menghadapi ujian"], answer: "Meningkatkan keterampilan" },
+        { question: "Siapa yang biasanya terlibat dalam workshop?", options: ["Peserta dan instruktur", "Hanya instruktur", "Hanya peserta"], answer: "Peserta dan instruktur" },
+        { question: "Apa pentingnya kolaborasi dalam workshop?", options: ["Meningkatkan hasil kreatif", "Mengurangi waktu", "Mempercepat proses"], answer: "Meningkatkan hasil kreatif" },
+        { question: "Apa jenis kegiatan yang umum dilakukan dalam workshop?", options: ["Diskusi", "Praktik langsung", "Kedua-duanya"], answer: "Kedua-duanya" },
+        { question: "Apa yang dimaksud dengan feedback dalam konteks workshop?", options: ["Umpan balik untuk perbaikan", "Hanya pujian", "Kritik negatif"], answer: "Umpan balik untuk perbaikan" },
+        { question: "Mengapa penting untuk memiliki instruktur dalam workshop?", options: ["Memberikan arahan", "Menyediakan materi", "Kedua-duanya"], answer: "Kedua-duanya" },
+        { question: "Apa yang bisa dipelajari dari workshop?", options: ["Keterampilan baru", "Teori saja", "Hanya praktek"], answer: "Keterampilan baru" },
+        { question: "Bagaimana cara efektif berpartisipasi dalam workshop?", options: ["Mendengarkan dan berkontribusi", "Hanya mendengarkan", "Hanya berbicara"], answer: "Mendengarkan dan berkontribusi" },
+        { question: "Apa hasil yang diharapkan dari workshop?", options: ["Peningkatan keterampilan dan pengetahuan", "Hanya pengetahuan", "Hanya keterampilan"], answer: "Peningkatan keterampilan dan pengetahuan" }
+    ];
+
+    let score = 0;
+    let correctAnswers = 0;
+    let wrongAnswers = 0;
+
+    function displayQuestions() {
+        const quizContainer = document.getElementById('quiz-container');
+        questions.forEach((q, index) => {
+            const questionElement = document.createElement('div');
+            questionElement.innerHTML = `<p><strong>${index + 1}. ${q.question}</strong></p>`;
+            q.options.forEach(option => {
+                questionElement.innerHTML += `<button onclick="checkAnswer('${option}', '${q.answer}')">${option}</button>`;
+            });
+            quizContainer.appendChild(questionElement);
+        });
+    }
+
+    function checkAnswer(selected, correct) {
+        if (selected === correct) {
+            score++;
+            correctAnswers++;
+        } else {
+            wrongAnswers++;
+        }
+    }
+
+    function calculateScore() {
+        document.getElementById('result').innerText = `Jawaban Benar: ${correctAnswers}, Jawaban Salah: ${wrongAnswers}, Skor Anda: ${score} dari ${questions.length}`;
+    }
+
+    displayQuestions();
+</script>
+
+</body>
+</html>

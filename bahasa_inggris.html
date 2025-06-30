@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pelajaran Bahasa Inggris</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+        header {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px;
+            text-align: center;
+        }
+        .container {
+            padding: 20px;
+        }
+        button {
+            background: #4CAF50;
+            color: white;
+            padding: 10px;
+            border: none;
+            cursor: pointer;
+        }
+        .quiz {
+            margin-top: 20px;
+            background: white;
+            padding: 15px;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>Pelajaran Bahasa Inggris</h1>
+</header>
+
+<div class="container">
+    <h2>Materi Bahasa Inggris untuk Mahasiswa</h2>
+    <p>Sinopsis: Mempelajari keterampilan berbicara, membaca, dan menulis dalam bahasa Inggris.</p>
+    <p>Materi Singkat: Dalam pelajaran ini, siswa akan diajarkan kosakata, tata bahasa, serta keterampilan berbicara dan mendengarkan. Fokus utama adalah meningkatkan kemampuan komunikasi dalam situasi sehari-hari dan akademis.</p>
+    
+    <div class="quiz">
+        <h3>Kuiz Bahasa Inggris</h3>
+        <div id="quiz-container"></div>
+        <p id="result" style="margin-top: 10px;"></p>
+        <button onclick="calculateScore()">Tampilkan Skor</button>
+    </div>
+
+    <button onclick="window.location.href='index.html'">Kembali ke Beranda</button>
+</div>
+
+<script>
+    const questions = [
+        { question: "What is the plural form of 'child'?", options: ["Childs", "Children", "Childes"], answer: "Children" },
+        { question: "What is the past tense of 'go'?", options: ["Gone", "Went", "Going"], answer: "Went" },
+        { question: "Which word means 'happy'?", options: ["Sad", "Joyful", "Angry"], answer: "Joyful" },
+        { question: "What is the opposite of 'hot'?", options: ["Cold", "Warm", "Cool"], answer: "Cold" },
+        { question: "What do you call a person who writes books?", options: ["Author", "Writer", "Publisher"], answer: "Author" },
+        { question: "What is the synonym of 'fast'?", options: ["Quick", "Slow", "Speedy"], answer: "Quick" },
+        { question: "Which sentence is correct?", options: ["She go to school.", "She goes to school.", "She gone to school."], answer: "She goes to school." },
+        { question: "What does 'bilingual' mean?", options: ["Speaks two languages", "Speaks three languages", "Speaks one language"], answer: "Speaks two languages" },
+        { question: "What is the capital of the UK?", options: ["London", "Paris", "Berlin"], answer: "London" },
+        { question: "Which word describes a place where you can borrow books?", options: ["Library", "Bookstore", "School"], answer: "Library" }
+    ];
+
+    let score = 0;
+    let correctAnswers = 0;
+    let wrongAnswers = 0;
+
+    function displayQuestions() {
+        const quizContainer = document.getElementById('quiz-container');
+        questions.forEach((q, index) => {
+            const questionElement = document.createElement('div');
+            questionElement.innerHTML = `<p><strong>${index + 1}. ${q.question}</strong></p>`;
+            q.options.forEach(option => {
+                questionElement.innerHTML += `<button onclick="checkAnswer('${option}', '${q.answer}')">${option}</button>`;
+            });
+            quizContainer.appendChild(questionElement);
+        });
+    }
+
+    function checkAnswer(selected, correct) {
+        if (selected === correct) {
+            score++;
+            correctAnswers++;
+        } else {
+            wrongAnswers++;
+        }
+    }
+
+    function calculateScore() {
+        document.getElementById('result').innerText = `Jawaban Benar: ${correctAnswers}, Jawaban Salah: ${wrongAnswers}, Skor Anda: ${score} dari ${questions.length}`;
+    }
+
+    displayQuestions();
+</script>
+
+</body>
+</html>
